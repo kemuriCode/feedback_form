@@ -4,14 +4,19 @@ $name = $lastName = $email = $articleRate = $comment = $category = $image = "";
 
  // Konfiguracja bazy danych
 
-$host = "userdb1";
+/*$host = "userdb1";
 $db_user = "1169374_MmM";
 $db_password = "2Z7Q30X6HEZt4S";
-$db_name = "1169374_MmM";
+$db_name = "1169374_MmM";*/
+
+$host = "localhost";
+$db_user = "root";
+$db_password = "Amsterdam.1";
+$db_name = "dane";
 
  // Połączenie do bazy danych
 
-$conn = mysqli("$host", "$db_user", "$db_password", "$db_name");
+$conn = new mysqli("$host", "$db_user", "$db_password", "$db_name");
 if ($conn->connect_error) die($conn->connect_error);
 if (isset($_POST['name']) &&
     isset($_POST['last-name']) &&
@@ -33,7 +38,8 @@ if (isset($_POST['name']) &&
     if (!$result) echo "błąd: $query<br>".$conn->error;
 }
 // Wysyłanie danych
-echo <<<_END
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -146,7 +152,7 @@ echo <<<_END
                     <!--Form with header-->
                 </div>
             </div>
-_END;
+            <?php
 $query = "SELECT * FROM dane"; $result = $conn->query($query);
 if (!$result) die ("Brak dostępu do bazy danych: " . $conn->error);
 $row = $result->num_rows;
@@ -161,16 +167,22 @@ echo <<<_END
                 <div class="square pull-left">
                     <img src="http://placehold.it/60/8e44ad/FFF&text=B" alt="" class="" />
                 </div>
-                <h4>
-                    John Doe</h4>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a
-                    ante.
-                </p>
+                <h4>"$row[1]" + "$row[2]"</h4>
+                <p>"Adres email: $row[3]"</p>
+                <p>"Kategoria: $row[4]"</p>
+                <p>"Ocena to:$row[5]"</p>
+                <p>"$row[6]"</p>
             </div>
         </div>
     </div>
 </div>
+        </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</body>
+</html>
 _END;
 }
 $result->close();
@@ -178,12 +190,4 @@ $conn->close();
 function get_post($conn, $var) {
     return $conn->real_escape_string($_POST[$var]);
 }
-echo <<<_END
-        </div>
-        
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-</body>
-</html>
-_END;
+?>
