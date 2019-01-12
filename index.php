@@ -1,8 +1,6 @@
 <?php
 
-$name = $lastName = $email = $articleRate = $comment = $category = $image = "";
-
- // Konfiguracja bazy danych
+// Konfiguracja bazy danych
 
 /*$host = "userdb1";
 $db_user = "1169374_MmM";
@@ -11,14 +9,15 @@ $db_name = "1169374_MmM";*/
 
 $host = "localhost";
 $db_user = "root";
-$db_password = "Amsterdam.1";
+$db_password = "password";
 $db_name = "dane";
 
- // Połączenie do bazy danych
+// Połączenie do bazy danych
 
 $conn = new mysqli("$host", "$db_user", "$db_password", "$db_name");
 if ($conn->connect_error) die($conn->connect_error);
-if (isset($_POST['name']) &&
+if (isset($_POST['id']) &&
+    isset($_POST['name']) &&
     isset($_POST['last-name']) &&
     isset($_POST['email']) &&
     isset($_POST['category']) &&
@@ -26,6 +25,7 @@ if (isset($_POST['name']) &&
     isset($_POST['article-rate']) &&
     isset($_POST['comment']))
 {
+    $id = get_post($conn, 'NULL');
     $name = get_post($conn, 'name');
     $lastName = get_post($conn, 'last-name');
     $email = get_post($conn, 'email');
@@ -33,7 +33,7 @@ if (isset($_POST['name']) &&
     $image = get_post($conn, 'image');
     $articleRate = get_post($conn, 'article-rate');
     $comment = get_post($conn, 'comment');
-    $query = "INSERT INTO dane VALUES " . "('$name','$lastName','$email','$category','$image','$articleRate', '$comment')";
+    $query = "INSERT INTO dane VALUES " . "('$id','$name','$lastName','$email','$category','$image','$articleRate', '$comment')";
     $result = $conn->query($query);
     if (!$result) echo "błąd: $query<br>".$conn->error;
 }
@@ -152,7 +152,7 @@ if (isset($_POST['name']) &&
                     <!--Form with header-->
                 </div>
             </div>
-            <?php
+<?php
 $query = "SELECT * FROM dane"; $result = $conn->query($query);
 if (!$result) die ("Brak dostępu do bazy danych: " . $conn->error);
 $row = $result->num_rows;
