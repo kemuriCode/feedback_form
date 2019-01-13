@@ -1,6 +1,8 @@
 <?php
 
-// Konfiguracja bazy danych
+$name = $lastName = $email = $articleRate = $comment = $category = $image = "";
+
+ // Konfiguracja bazy danych
 
 /*$host = "userdb1";
 $db_user = "1169374_MmM";
@@ -9,15 +11,14 @@ $db_name = "1169374_MmM";*/
 
 $host = "localhost";
 $db_user = "root";
-$db_password = "password";
+$db_password = "Amsterdam.1";
 $db_name = "dane";
 
-// Połączenie do bazy danych
+ // Połączenie do bazy danych
 
 $conn = new mysqli("$host", "$db_user", "$db_password", "$db_name");
 if ($conn->connect_error) die($conn->connect_error);
-if (isset($_POST['id']) &&
-    isset($_POST['name']) &&
+if (isset($_POST['name']) &&
     isset($_POST['last-name']) &&
     isset($_POST['email']) &&
     isset($_POST['category']) &&
@@ -25,7 +26,6 @@ if (isset($_POST['id']) &&
     isset($_POST['article-rate']) &&
     isset($_POST['comment']))
 {
-    $id = get_post($conn, 'NULL');
     $name = get_post($conn, 'name');
     $lastName = get_post($conn, 'last-name');
     $email = get_post($conn, 'email');
@@ -33,13 +33,29 @@ if (isset($_POST['id']) &&
     $image = get_post($conn, 'image');
     $articleRate = get_post($conn, 'article-rate');
     $comment = get_post($conn, 'comment');
-    $query = "INSERT INTO dane VALUES " . "('$id','$name','$lastName','$email','$category','$image','$articleRate', '$comment')";
+    $query = "INSERT INTO dane VALUES " . "('$name','$lastName','$email','$category','$image','$articleRate', '$comment')";
     $result = $conn->query($query);
-    if (!$result) echo "błąd: $query<br>".$conn->error;
+    if (!$result) echo "Instrukcja INSERT nie powiodła się: $query<br>" . $conn->error;
+        $conn->error . "<br><br>";
 }
-// Wysyłanie danych
-?>
+$max_rozmiar = 1024*1024;
+if (is_uploaded_file($_FILES['image']['tmp_name'])) {
+    if ($_FILES['image']['size'] > $max_rozmiar) {
+        echo 'Błąd! Plik jest za duży!';
+    } else {
+        echo 'Odebrano plik. Początkowa nazwa: '.$_FILES['image']['name'];
+        echo '<br/>';
+        if (isset($_FILES['image']['type'])) {
+            echo 'Typ: '.$_FILES['plik']['type'].'<br/>';
+        }
+        move_uploaded_file($_FILES['image']['tmp_name'],
+            $_SERVER['upload/'].'/foto/'.$_FILES['image']['name']);
+    }
+} else {
+    echo 'Błąd przy przesyłaniu danych!';
+}
 
+echo <<<_END
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,6 +65,13 @@ if (isset($_POST['id']) &&
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 </head>
+<style>
+.rating-star
+{
+    color: #ffff00;
+    font-size: 2.5rem;
+}
+</style>
 <body>
         <div class="container">
             <div class="row justify-content-center">
@@ -152,30 +175,6 @@ if (isset($_POST['id']) &&
                     <!--Form with header-->
                 </div>
             </div>
-<?php
-$query = "SELECT * FROM dane"; $result = $conn->query($query);
-if (!$result) die ("Brak dostępu do bazy danych: " . $conn->error);
-$row = $result->num_rows;
-for ($j = 0; $j<$row; ++$j) {
-    $result->data_seej($row);
-    $row = $result->fetch_array(MYSQLI_NUM);
-echo <<<_END
-<div class="container">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="blockquote-box clearfix">
-                <div class="square pull-left">
-                    <img src="http://placehold.it/60/8e44ad/FFF&text=B" alt="" class="" />
-                </div>
-                <h4>"$row[1]" + "$row[2]"</h4>
-                <p>"Adres email: $row[3]"</p>
-                <p>"Kategoria: $row[4]"</p>
-                <p>"Ocena to:$row[5]"</p>
-                <p>"$row[6]"</p>
-            </div>
-        </div>
-    </div>
-</div>
         </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -184,10 +183,46 @@ echo <<<_END
 </body>
 </html>
 _END;
-}
-$result->close();
-$conn->close();
-function get_post($conn, $var) {
+
+function get_post($conn, $var)
+{
     return $conn->real_escape_string($_POST[$var]);
 }
-?>
+$z = $conn->query("SELECT * FROM dane");
+
+while ($r = $z->fetch_assoc()) {
+    echo <<<_END
+            <div class="container">
+				<table id="user_data" class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th width="10%">Obrazek</th>
+							<th width="10%">Imię </th>
+							<th width="10%">Nazwisko</th>
+                            <th width="10%">Email</th>
+                            <th width="10%">Kategoria</th>
+                            <th width="10%">Ocena</th>
+                            <th width="20%">Komentarz</th>
+                            <th width="20%">IP</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th width="10%"></th>
+							<th width="10%">$r[first_name]</th>
+							<th width="10%">$r[last_name]</th>
+                            <th width="10%">$r[email]</th>
+                            <th width="10%">$r[category]</th>
+                            <th width="10%">$r[article_rate]</th>
+                            <th width="20%">$r[comment]</th>
+                            <th width="20%"></th>
+						</tr>
+                    </tbody>
+				</table>
+            </div>
+_END;
+}
+
+
+$result->close();
+$conn->close();
