@@ -39,6 +39,7 @@ if (isset($_POST['name']) &&
         $conn->error . "<br><br>";
 }
 
+$image_name = $_FILES['image']['name'];
 $ip=$_SERVER['REMOTE_ADDR'];
 
 //$plik_nazwa = $_FILES['image']['name'];
@@ -233,10 +234,27 @@ $image_tmp = $_FILES['image']['tmp_name'];
 $image_name = $_FILES['image']['name'];
 $image_size = $_FILES['image']['size'];
 
+$save_image = $image_name;
+
 if(is_uploaded_file($image_tmp)) {
     move_uploaded_file($image_tmp, "upload/$image_name");
-    echo "Plik: <strong>$image_name</strong> o rozmiarze 
-    <strong>$image_size bajtów</strong> został przesłany na serwer!";
+
+    $img = imagecreatefromjpeg(".$save_image");
+
+    $width = imagesx($img);
+    $height = imagesy($img);
+
+    $width_mini = 200; // szerokosc obrazka
+    $height_mini = 200; // wysokosc obrazka
+    $img_mini = imagecreatetruecolor($width_mini, $height_mini);
+
+
+    imagecopyresampled($img_mini, $img, 0, 0, 0, 0, $width_mini , $height_mini, $width  , $height);
+
+
+    imagejpeg($img_mini, "min-".$save_image."", 80); // utworzona miniaturka liczba (80) oznacza jakos obrazka od 0 do 100
+    imagedestroy($img);
+    imagedestroy($img_mini);
 }
 
 function get_post($conn, $var)
@@ -264,14 +282,14 @@ while ($r = $z->fetch_assoc()) {
 					</thead>
 					<tbody>
 						<tr>
-							<th width="10%"></th>
+							<th width="10%"><a href="{$r['image']}"><img src="min-{$r['image']}" class="img-responsive"></a></th>
 							<th width="10%">$r[first_name]</th>
 							<th width="10%">$r[last_name]</th>
                             <th width="10%">$r[email]</th>
                             <th width="10%">$r[category]</th>
                             <th width="10%">$r[article_rate]</th>
                             <th width="20%">$r[comment]</th>
-                            <th width="20%">$id</th>
+                            <th width="20%">$ip</th>
 						</tr>
                     </tbody>
 				</table>
