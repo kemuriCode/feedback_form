@@ -41,9 +41,9 @@ if (isset($_POST['name']) &&
 $image_name = $_FILES['image']['name'];
 $ip=$_SERVER['REMOTE_ADDR'];
 
-$count =$conn->query('SELECT COUNT(*) as cnt FROM dane')->fetch_row()['0'];
+$count =$conn->query('SELECT COUNT(article_rate) as cnt FROM dane')->fetch_row()['0'];
 $limit=5;
-$page = isSet($_GET['page']) ? intval($_GET['page']):0;
+$page = isset($_GET['page']) ? intval($_GET['page']):0;
 $from =$page*$limit;
 
 
@@ -55,7 +55,6 @@ echo <<<_END
 <head>
     <meta charset="utf-8" lang="pl" />
     <title>How to make a comment box in HTML</title>
-    <link href="style.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 </head>
@@ -65,8 +64,14 @@ echo <<<_END
 {
     color: #ffff00;
     font-size: 2.5rem;
-}
+},
+
 .center-span, .rating-input
+{
+    text-align: center;
+},
+
+.pagination
 {
     text-align: center;
 }
@@ -82,7 +87,7 @@ echo <<<_END
                         <div class="card border-primary rounded-0">
                             <div class="card-header p-0">
                                 <div class="bg-info text-white text-center py-2">
-                                    <h3><i class="fa fa-envelope"></i> Formularz Opini</h3>
+                                    <h3><i class="fa fa-envelope"></i> Formularz Opinii</h3>
                                     <p class="m-0">Tutaj dodasz swoją opinię</p>
                                 </div>
                             </div>
@@ -185,10 +190,7 @@ echo <<<_END
 _END;
 
 // wysłasnie pliku
-$read = pathinfo($image_name);
-$ext = $read['extension'];
 
-if ($ext =="jpg" || $ext =="pjpeg" || $ext =="jpeg" || $ext =="gif" || $ext =="png") {
     $image_tmp = $_FILES['image']['tmp_name'];
     $image_name = $_FILES['image']['name'];
 
@@ -213,27 +215,17 @@ if ($ext =="jpg" || $ext =="pjpeg" || $ext =="jpeg" || $ext =="gif" || $ext =="p
         imagejpeg($img_mini, "min-" . $save_image . "", 80); // utworzona miniaturka liczba (80) oznacza jakos obrazka od 0 do 100
         imagedestroy($img);
         imagedestroy($img_mini);
-    }
-} elseif ($ext==NULL){
-
-} else {
-    echo '<div class="row"><section class="col-lg-4 col-sm-2 col-md-2"></section>
-            <section class="col-lg-4 col-sm-8 col-md-8"><div class="alert alert-danger">
-            <strong>BŁĄD!</strong> Zły format obrazka(PNG/JPG)!
-            </div></section></div>';
-}
-
+        }
 function get_post($conn, $var)
 {
     return $conn->real_escape_string($_POST[$var]);
 }
-foreach  ($conn->query('SELECT * FROM dane ORDER BY id DESC LIMIT '. $from . ',' .$limit) as $r) {
-    if ($r['file'] == NULL) {
-        $r['file'] = 'brak.jpg';
-    }
-//$z = $conn->query("SELECT * FROM dane ");
-//
-//while ($r = $z->fetch_assoc()) {
+foreach  ($conn->query('SELECT * FROM dane ORDER BY id DESC LIMIT '.$from.','.$limit) as $r) {
+
+/*
+ * $z = $conn->query("SELECT * FROM dane ");
+ * while ($r = $z->fetch_assoc()) {*/
+
     echo <<<_END
             <div class="container">
 				<table id="user_data" class="table table-bordered table-striped">
@@ -251,7 +243,7 @@ foreach  ($conn->query('SELECT * FROM dane ORDER BY id DESC LIMIT '. $from . ','
 					</thead>
 					<tbody>
 						<tr>
-							<th width="10%"><a href="{$r['image']}"><img src="min-{$r['image']}" class="img-responsive"></a></th>
+							<th width="10%"><a href="./upload/{$r['image']}"><img src="./upload/{$r['image']}" class="img-responsive"></a></th>
 							<th width="10%">$r[first_name]</th>
 							<th width="10%">$r[last_name]</th>
                             <th width="10%">$r[email]</th>
@@ -268,11 +260,12 @@ _END;
 function t1($val, $min, $max){
     return ($val >= $min && $val <=$max);
 }
-echo '<section class="col-lg-4 col-md-2 col-sm-2"></section>';
+
+echo '<div class="row justify-content-center"></div>';
 for($i=0;$i<$allPage;$i++){
-    $bold = ($i==($page)) ? 'class="" style="font-weight:bold;color:black;font-size:17px"': '';
+    $bold = ($i==($page));
     if(t1($i, ($page-3), ($page+5))){
-        echo '<a '.$bold .' href="index.php?page='.$i.'">'.' <input type="button" class="btn btn-default" value="'.$i.'" /></a>  ';
+        echo '<a class="link-pagination" '.$bold .' href="index.php?page='.$i.'">'.'<input type="button" class="btn btn-primary" value="'.$i.'" /></a>';
     }
 }
 
