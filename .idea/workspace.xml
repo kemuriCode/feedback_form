@@ -16,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="231" column="42" lean-forward="true" selection-start-line="231" selection-start-column="42" selection-end-line="231" selection-end-column="42" />
+            <state relative-caret-position="184">
+              <caret line="233" column="26" selection-start-line="233" selection-start-column="26" selection-end-line="233" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -50,7 +50,7 @@
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="53" />
     <option name="y" value="27" />
-    <option name="width" value="694" />
+    <option name="width" value="1387" />
     <option name="height" value="873" />
   </component>
   <component name="ProjectView">
@@ -111,7 +111,7 @@
       <workItem from="1547190996186" duration="4621000" />
       <workItem from="1547327332284" duration="5741000" />
       <workItem from="1547373987996" duration="7529000" />
-      <workItem from="1547406991838" duration="4013000" />
+      <workItem from="1547406991838" duration="7671000" />
     </task>
     <task id="LOCAL-00001" summary="progress">
       <created>1547195275876</created>
@@ -127,17 +127,31 @@
       <option name="project" value="LOCAL" />
       <updated>1547382120130</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="progress #3">
+      <created>1547411019372</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1547411019372</updated>
+    </task>
+    <task id="LOCAL-00004" summary="progress #4">
+      <created>1547412919684</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1547412919684</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="39439000" />
+    <option name="totallyTimeSpent" value="43097000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="53" y="27" width="1387" height="873" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25463995" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.101707496" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -164,7 +178,9 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="progress" />
     <MESSAGE value="progress #2" />
-    <option name="LAST_COMMIT_MESSAGE" value="progress #2" />
+    <MESSAGE value="progress #3" />
+    <MESSAGE value="progress #4" />
+    <option name="LAST_COMMIT_MESSAGE" value="progress #4" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/style.css">
@@ -175,8 +191,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="231" column="42" lean-forward="true" selection-start-line="231" selection-start-column="42" selection-end-line="231" selection-end-column="42" />
+        <state relative-caret-position="184">
+          <caret line="233" column="26" selection-start-line="233" selection-start-column="26" selection-end-line="233" selection-end-column="26" />
         </state>
       </provider>
     </entry>

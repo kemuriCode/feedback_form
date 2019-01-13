@@ -1,6 +1,6 @@
 <?php
 
-$name = $lastName = $email = $articleRate = $comment = $category = $image = "";
+//$name = $lastName = $email = $articleRate = $comment = $category = $image = "";
 
  // Konfiguracja bazy danych
 
@@ -36,63 +36,18 @@ if (isset($_POST['name']) &&
     $query = "INSERT INTO dane VALUES " . "('$name','$lastName','$email','$category','$image','$articleRate', '$comment', NULL)";
     $result = $conn->query($query);
     if (!$result) echo "Instrukcja INSERT nie powiodła się: $query<br>" . $conn->error;
-        $conn->error . "<br><br>";
 }
 
 $image_name = $_FILES['image']['name'];
 $ip=$_SERVER['REMOTE_ADDR'];
 
-//$plik_nazwa = $_FILES['image']['name'];
-//
-//
-//$count =$polaczenie->query('SELECT COUNT(id) as dane FROM dane')->fetch_row()['8'];
-//$limit=5;
-//$page = isSet($_GET['page']) ? intval($_GET['page']):0;
-//$from =$page*$limit;
-//
-//
-//$allPage=ceil($count/$limit);
-//
-//$odczyt = pathinfo($plik_nazwa);
-//$ext = $odczyt['extension'];
-//
-//
-//if ($ext =="jpg" || $ext =="pjpeg" || $ext =="jpeg" || $ext =="gif" || $ext =="png"){
-//    $plik_tmp = $_FILES['image']['tmp_name'];
-//    $plik_nazwa = $_FILES['image']['name'];
-//
-//    $save_file = $plik_nazwa;
-//
-//
-//    if(is_uploaded_file($plik_tmp)) {
-//        move_uploaded_file($plik_tmp, ''.$save_file.'');
-//
-//
-//
-//
-//        $img = imagecreatefromjpeg(''.$save_file.'');
-//
-//        $width  = imagesx($img);
-//        $height = imagesy($img);
-//
-//
-//        $width_mini = 200; // szerokosc obrazka
-//        $height_mini = 200; // wysokosc obrazka
-//        $img_mini = imagecreatetruecolor($width_mini, $height_mini);
-//
-//
-//        imagecopyresampled($img_mini, $img, 0, 0, 0, 0, $width_mini , $height_mini, $width  , $height);
-//
-//
-//        imagejpeg($img_mini, "min-".$save_file."", 80); // utworzona miniaturka liczba (80) oznacza jakos obrazka od 0 do 100
-//        imagedestroy($img);
-//        imagedestroy($img_mini);
-//
-//    }
-//}
-//else if($ext==NULL){
-//
-//}
+$count =$conn->query('SELECT COUNT(*) as cnt FROM dane')->fetch_row()['0'];
+$limit=5;
+$page = isSet($_GET['page']) ? intval($_GET['page']):0;
+$from =$page*$limit;
+
+
+$allPage=ceil($count/$limit);
 
 echo <<<_END
 <!DOCTYPE html>
@@ -230,41 +185,55 @@ echo <<<_END
 _END;
 
 // wysłasnie pliku
-$image_tmp = $_FILES['image']['tmp_name'];
-$image_name = $_FILES['image']['name'];
-$image_size = $_FILES['image']['size'];
+$read = pathinfo($image_name);
+$ext = $read['extension'];
 
-$save_image = $image_name;
+if ($ext =="jpg" || $ext =="pjpeg" || $ext =="jpeg" || $ext =="gif" || $ext =="png") {
+    $image_tmp = $_FILES['image']['tmp_name'];
+    $image_name = $_FILES['image']['name'];
 
-if(is_uploaded_file($image_tmp)) {
-    move_uploaded_file($image_tmp, "upload/$image_name");
+    $save_image = $image_name;
 
-    $img = imagecreatefromjpeg(".$save_image");
+    if (is_uploaded_file($image_tmp)) {
+        move_uploaded_file($image_tmp, "upload/$image_name");
 
-    $width = imagesx($img);
-    $height = imagesy($img);
+        $img = imagecreatefromjpeg(".$save_image.");
 
-    $width_mini = 200; // szerokosc obrazka
-    $height_mini = 200; // wysokosc obrazka
-    $img_mini = imagecreatetruecolor($width_mini, $height_mini);
+        $width = imagesx($img);
+        $height = imagesy($img);
+
+        $width_mini = 200; // szerokosc obrazka
+        $height_mini = 200; // wysokosc obrazka
+        $img_mini = imagecreatetruecolor($width_mini, $height_mini);
 
 
-    imagecopyresampled($img_mini, $img, 0, 0, 0, 0, $width_mini , $height_mini, $width  , $height);
+        imagecopyresampled($img_mini, $img, 0, 0, 0, 0, $width_mini, $height_mini, $width, $height);
 
 
-    imagejpeg($img_mini, "min-".$save_image."", 80); // utworzona miniaturka liczba (80) oznacza jakos obrazka od 0 do 100
-    imagedestroy($img);
-    imagedestroy($img_mini);
+        imagejpeg($img_mini, "min-" . $save_image . "", 80); // utworzona miniaturka liczba (80) oznacza jakos obrazka od 0 do 100
+        imagedestroy($img);
+        imagedestroy($img_mini);
+    }
+} elseif ($ext==NULL){
+
+} else {
+    echo '<div class="row"><section class="col-lg-4 col-sm-2 col-md-2"></section>
+            <section class="col-lg-4 col-sm-8 col-md-8"><div class="alert alert-danger">
+            <strong>BŁĄD!</strong> Zły format obrazka(PNG/JPG)!
+            </div></section></div>';
 }
 
 function get_post($conn, $var)
 {
     return $conn->real_escape_string($_POST[$var]);
 }
-
-$z = $conn->query("SELECT * FROM dane ");
-
-while ($r = $z->fetch_assoc()) {
+foreach  ($conn->query('SELECT * FROM dane ORDER BY id DESC LIMIT '. $from . ',' .$limit) as $r) {
+    if ($r['file'] == NULL) {
+        $r['file'] = 'brak.jpg';
+    }
+//$z = $conn->query("SELECT * FROM dane ");
+//
+//while ($r = $z->fetch_assoc()) {
     echo <<<_END
             <div class="container">
 				<table id="user_data" class="table table-bordered table-striped">
@@ -296,7 +265,16 @@ while ($r = $z->fetch_assoc()) {
             </div>
 _END;
 }
-
+function t1($val, $min, $max){
+    return ($val >= $min && $val <=$max);
+}
+echo '<section class="col-lg-4 col-md-2 col-sm-2"></section>';
+for($i=0;$i<$allPage;$i++){
+    $bold = ($i==($page)) ? 'class="" style="font-weight:bold;color:black;font-size:17px"': '';
+    if(t1($i, ($page-3), ($page+5))){
+        echo '<a '.$bold .' href="index.php?page='.$i.'">'.' <input type="button" class="btn btn-default" value="'.$i.'" /></a>  ';
+    }
+}
 
 $result->close();
 $conn->close();
