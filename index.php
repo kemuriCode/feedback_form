@@ -33,27 +33,65 @@ if (isset($_POST['name']) &&
     $image = get_post($conn, 'image');
     $articleRate = get_post($conn, 'article-rate');
     $comment = get_post($conn, 'comment');
-    $query = "INSERT INTO dane VALUES " . "('$name','$lastName','$email','$category','$image','$articleRate', '$comment')";
+    $query = "INSERT INTO dane VALUES " . "('$name','$lastName','$email','$category','$image','$articleRate', '$comment', NULL)";
     $result = $conn->query($query);
     if (!$result) echo "Instrukcja INSERT nie powiodła się: $query<br>" . $conn->error;
         $conn->error . "<br><br>";
 }
-$max_rozmiar = 1024*1024;
-if (is_uploaded_file($_FILES['image']['tmp_name'])) {
-    if ($_FILES['image']['size'] > $max_rozmiar) {
-        echo 'Błąd! Plik jest za duży!';
-    } else {
-        echo 'Odebrano plik. Początkowa nazwa: '.$_FILES['image']['name'];
-        echo '<br/>';
-        if (isset($_FILES['image']['type'])) {
-            echo 'Typ: '.$_FILES['plik']['type'].'<br/>';
-        }
-        move_uploaded_file($_FILES['image']['tmp_name'],
-            $_SERVER['upload/'].'/foto/'.$_FILES['image']['name']);
-    }
-} else {
-    echo 'Błąd przy przesyłaniu danych!';
-}
+
+$ip=$_SERVER['REMOTE_ADDR'];
+
+//$plik_nazwa = $_FILES['image']['name'];
+//
+//
+//$count =$polaczenie->query('SELECT COUNT(id) as dane FROM dane')->fetch_row()['8'];
+//$limit=5;
+//$page = isSet($_GET['page']) ? intval($_GET['page']):0;
+//$from =$page*$limit;
+//
+//
+//$allPage=ceil($count/$limit);
+//
+//$odczyt = pathinfo($plik_nazwa);
+//$ext = $odczyt['extension'];
+//
+//
+//if ($ext =="jpg" || $ext =="pjpeg" || $ext =="jpeg" || $ext =="gif" || $ext =="png"){
+//    $plik_tmp = $_FILES['image']['tmp_name'];
+//    $plik_nazwa = $_FILES['image']['name'];
+//
+//    $save_file = $plik_nazwa;
+//
+//
+//    if(is_uploaded_file($plik_tmp)) {
+//        move_uploaded_file($plik_tmp, ''.$save_file.'');
+//
+//
+//
+//
+//        $img = imagecreatefromjpeg(''.$save_file.'');
+//
+//        $width  = imagesx($img);
+//        $height = imagesy($img);
+//
+//
+//        $width_mini = 200; // szerokosc obrazka
+//        $height_mini = 200; // wysokosc obrazka
+//        $img_mini = imagecreatetruecolor($width_mini, $height_mini);
+//
+//
+//        imagecopyresampled($img_mini, $img, 0, 0, 0, 0, $width_mini , $height_mini, $width  , $height);
+//
+//
+//        imagejpeg($img_mini, "min-".$save_file."", 80); // utworzona miniaturka liczba (80) oznacza jakos obrazka od 0 do 100
+//        imagedestroy($img);
+//        imagedestroy($img_mini);
+//
+//    }
+//}
+//else if($ext==NULL){
+//
+//}
 
 echo <<<_END
 <!DOCTYPE html>
@@ -66,11 +104,17 @@ echo <<<_END
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 </head>
 <style>
+
 .rating-star
 {
     color: #ffff00;
     font-size: 2.5rem;
 }
+.center-span, .rating-input
+{
+    text-align: center;
+}
+
 </style>
 <body>
         <div class="container">
@@ -78,7 +122,7 @@ echo <<<_END
                 <div class="col-12 col-md-8 col-lg-6 pb-5">
                     <!--Form with header-->
 
-                    <form action="index.php" method="post">
+                    <form action="index.php" method="post" enctype="multipart/form-data">
                         <div class="card border-primary rounded-0">
                             <div class="card-header p-0">
                                 <div class="bg-info text-white text-center py-2">
@@ -137,7 +181,7 @@ echo <<<_END
                                     <div class="form-group">
                                         <div class="input-group mb-2">
                                             <div class="input-group-prepend">
-                                                <span>Oceń: </span>
+                                                <span class="center-span">Oceń: </span>
                                                 <input class="rating-input" id="five-stars" type="radio" name="article-rate" value="1">
                                                 <label class="rating-star" for="five-stars"><i class="fa fa-star"></i></label>
 
@@ -184,11 +228,23 @@ echo <<<_END
 </html>
 _END;
 
+// wysłasnie pliku
+$image_tmp = $_FILES['image']['tmp_name'];
+$image_name = $_FILES['image']['name'];
+$image_size = $_FILES['image']['size'];
+
+if(is_uploaded_file($image_tmp)) {
+    move_uploaded_file($image_tmp, "upload/$image_name");
+    echo "Plik: <strong>$image_name</strong> o rozmiarze 
+    <strong>$image_size bajtów</strong> został przesłany na serwer!";
+}
+
 function get_post($conn, $var)
 {
     return $conn->real_escape_string($_POST[$var]);
 }
-$z = $conn->query("SELECT * FROM dane");
+
+$z = $conn->query("SELECT * FROM dane ");
 
 while ($r = $z->fetch_assoc()) {
     echo <<<_END
@@ -215,7 +271,7 @@ while ($r = $z->fetch_assoc()) {
                             <th width="10%">$r[category]</th>
                             <th width="10%">$r[article_rate]</th>
                             <th width="20%">$r[comment]</th>
-                            <th width="20%"></th>
+                            <th width="20%">$id</th>
 						</tr>
                     </tbody>
 				</table>

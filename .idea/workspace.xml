@@ -16,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="71" column="21" selection-start-line="71" selection-start-column="21" selection-end-line="71" selection-end-column="21" />
+            <state relative-caret-position="243">
+              <caret line="231" column="42" lean-forward="true" selection-start-line="231" selection-start-column="42" selection-end-line="231" selection-end-column="42" />
             </state>
           </provider>
         </entry>
@@ -66,6 +66,11 @@
               <item name="opinion_brainbox_demo" type="b2602c69:ProjectViewProjectNode" />
               <item name="opinion_brainbox_demo" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="opinion_brainbox_demo" type="b2602c69:ProjectViewProjectNode" />
+              <item name="opinion_brainbox_demo" type="462c0819:PsiDirectoryNode" />
+              <item name="upload" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -105,7 +110,8 @@
       <workItem from="1547152171807" duration="17535000" />
       <workItem from="1547190996186" duration="4621000" />
       <workItem from="1547327332284" duration="5741000" />
-      <workItem from="1547373987996" duration="7368000" />
+      <workItem from="1547373987996" duration="7529000" />
+      <workItem from="1547406991838" duration="4013000" />
     </task>
     <task id="LOCAL-00001" summary="progress">
       <created>1547195275876</created>
@@ -114,17 +120,24 @@
       <option name="project" value="LOCAL" />
       <updated>1547195275876</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="progress #2">
+      <created>1547382120130</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1547382120130</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="35265000" />
+    <option name="totallyTimeSpent" value="39439000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="53" y="27" width="1387" height="873" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13363029" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25463995" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -137,7 +150,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.3297587" />
+      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.3297587" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -150,16 +163,20 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="progress" />
-    <option name="LAST_COMMIT_MESSAGE" value="progress" />
+    <MESSAGE value="progress #2" />
+    <option name="LAST_COMMIT_MESSAGE" value="progress #2" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/style.css">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/upload/IMG_5221.JPG">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="71" column="21" selection-start-line="71" selection-start-column="21" selection-end-line="71" selection-end-column="21" />
+        <state relative-caret-position="243">
+          <caret line="231" column="42" lean-forward="true" selection-start-line="231" selection-start-column="42" selection-end-line="231" selection-end-column="42" />
         </state>
       </provider>
     </entry>
