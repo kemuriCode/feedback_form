@@ -14,7 +14,7 @@
             <!--Form with header-->
 
             <form action="" method="post" enctype="multipart/form-data">
-                <div class="card border-primary rounded-0">
+                <div class="card">
                     <div class="card-header p-0">
                         <div class="bg-info text-white text-center py-2">
                             <h3><i class="fa fa-envelope"></i> Formularz Opinii</h3>
@@ -264,42 +264,11 @@ else {
     }
 }
 
-// 5 wyświetlających się rekrdów
 foreach  ($conn->query('SELECT * FROM dane ORDER BY id DESC LIMIT '. $from . ',' .$limit) as $r) {
     if($r['image']==NULL){
         $r['image']='brak.png';
     }
 // wyświetlanie opinii
-/*    echo <<<_END
-            <div class="card">
-				<table id="user_data" class="table table-bordered table-striped">
-					<thead>
-						<tr>
-							<th class="table-info" width="10%">Obrazek</th>
-							<th class="table-info" width="10%">Imię </th>
-							<th class="table-info" width="10%">Nazwisko</th>
-                            <th class="table-info" width="10%">Email</th>
-                            <th class="table-info" width="10%">Kategoria</th>
-                            <th class="table-info" width="10%">Ocena</th>
-                            <th class="table-info" width="20%">Komentarz</th>
-                            <th class="table-info" width="20%">IP</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<th width="10%"></th>
-							<th width="10%">$r[first_name]</th>
-							<th width="10%">$r[last_name]</th>
-                            <th width="10%">$r[email]</th>
-                            <th width="10%">$r[category]</th>
-                            <th width="10%">$r[article_rate]/5 gwiazdek</th>
-                            <th width="20%">$r[comment]</th>
-                            <th width="20%">$ip</th>
-						</tr>
-                    </tbody>
-				</table>
-            </div>
-_END;*/
 echo <<<_END
 <div class="reviews">
   <div class="row blockquote review-item">
@@ -314,7 +283,7 @@ echo <<<_END
     <div class="col-md-9">
       <h5>Kategoria: $r[category]</h5>
       <h6>Email: $r[email]</h6>
-      <h6>Ocena: $r[article_rate]</h6>
+      <h6>Ocena: $r[article_rate]/5</h6>
       <p class="review-text">$r[comment]</p>
       <small class="review-date">IP ADRES: $ip</small>
     </div>                          
@@ -339,7 +308,7 @@ echo <<<_END
    <div class="row">
    
             <div class="col-md-4 col-sm-6 col-xs-12">
-              <span class="logo">BRAINBOX</span>
+              <img src="logo/logo.png" height="200" width="255">
             </div>
             
             <div class="col-md-4 col-sm-6 col-xs-12">

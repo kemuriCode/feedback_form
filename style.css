@@ -6,9 +6,19 @@ body
     background: linear-gradient(to right, #eef2f3, #8e9eab); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 }
+
+.card
+{
+
+    background:#fff;
+    box-shadow:0 10px 35px darkcyan;
+    border-radius:10px;
+    transition:0.5s;
+}
+
 .rating-star
 {
-    color: #ffff00;
+    color: #fff000;
     font-size: 2.5rem;
     padding-left: 0.5rem;
     cursor: pointer;
@@ -38,17 +48,11 @@ footer
     padding:30px 0px;
 }
 
-.logo{
-    color:#000;
-    font-weight:700;
-    font-size:30px;
-}
-
 .address span , .menu span{
     color: #000;
     font-weight: bold;
-    border-bottom: 1px solid seagreen;
-    padding:10px 0px;
+    border-bottom: 2px solid darkcyan;
+    padding:50px 0px 2px;
     display: block;
     text-transform: uppercase;
     font-size: 16px;
@@ -78,7 +82,7 @@ footer
     background-color: white;
     padding: 15px;
     margin-bottom: 5px;
-    box-shadow: 1px 1px 5px #343a40;
+    box-shadow: 1px 1px 5px darkcyan;
 }
 
 .review-item .review-date{
@@ -94,48 +98,5 @@ footer
 .review-item .reviewer{
     width: 100px;
     height: 100px;
-    border: 1px solid #cecece;
-}
-
-/****Rating Stars***/
-.raterater-bg-layer {
-    color: rgba( 0, 0, 0, 0.25 );
-}
-.raterater-hover-layer {
-    color: rgba( 255, 255, 0, 0.75 );
-}
-.raterater-hover-layer.rated { /* after the user selects a rating */
-    color: rgba( 255, 255, 0, 1 );
-}
-.raterater-rating-layer {
-    color: rgba( 255, 155, 0, 0.75 );
-}
-.raterater-outline-layer {
-    color: rgba( 0, 0, 0, 0.25 );
-}
-
-/* don't change these - you might break something.. */
-.raterater-wrapper {
-    overflow:visible;
-}
-
-.software .raterater-wrapper {
-    margin-top: 4px;
-}
-
-.raterater-layer,
-.raterater-layer i {
-    display: block;
-    position: absolute;
-    overflow: visible;
-    top: 0px;
-    left: 0px;
-}
-.raterater-hover-layer {
-    display: none;
-}
-.raterater-hover-layer i,
-.raterater-rating-layer i {
-    width: 0px;
-    overflow: hidden;
+    border: 1px solid darkcyan;
 }
