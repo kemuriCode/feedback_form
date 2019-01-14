@@ -273,7 +273,7 @@ echo <<<_END
 <div class="reviews">
   <div class="row blockquote review-item">
     <div class="col-md-3 text-center">
-      <a href="./upload/{$r['image']}"><img src="./upload/{$r['image']}" class="img-responsive" height="100px" width="100px"></a>
+      <a href="upload/{$r['image']}"><img src="upload/{$r['image']}" class="img-responsive" height="100px" width="100px"></a>
       <div class="caption">
         <small>$r[first_name]</small>
         <small>$r[last_name]</small>
