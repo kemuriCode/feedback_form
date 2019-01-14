@@ -6,10 +6,10 @@
  */
 // Konfiguracja bazy danych
 
-/*$host = "userdb1";
-$db_user = "1169374_MmM";
-$db_password = "2Z7Q30X6HEZt4S";
-$db_name = "1169374_MmM";*/
+//$host = "userdb1";
+//$user = "1169374_MmM";
+//$password = "2Z7Q30X6HEZt4S";
+//$database = "1169374_MmM";
 
 $host = "localhost";
 $user = "root";

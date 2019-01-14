@@ -46,6 +46,7 @@ input:checked + .rating-star
 footer
 {
     padding:30px 0px;
+    margin: 0px 50px 30px 50px;
 }
 
 .address span , .menu span{
