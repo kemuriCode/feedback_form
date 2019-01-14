@@ -1,6 +1,6 @@
 <?php
 
-//$name = $lastName = $email = $articleRate = $comment = $category = $image = "";
+$name = $lastName = $email = $articleRate = $comment = $category = $image = "";
 
  // Konfiguracja bazy danych
 
@@ -41,7 +41,7 @@ if (isset($_POST['name']) &&
 $image_name = $_FILES['image']['name'];
 $ip=$_SERVER['REMOTE_ADDR'];
 
-$count =$conn->query('SELECT COUNT(article_rate) as cnt FROM dane')->fetch_row()['0'];
+$count =$conn->query('SELECT COUNT(*) as cnt FROM dane')->fetch_row()['0'];
 $limit=5;
 $page = isset($_GET['page']) ? intval($_GET['page']):0;
 $from =$page*$limit;
@@ -54,7 +54,7 @@ echo <<<_END
 <html>
 <head>
     <meta charset="utf-8" lang="pl" />
-    <title>How to make a comment box in HTML</title>
+    <title>Feedback Form</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 </head>
@@ -64,16 +64,10 @@ echo <<<_END
 {
     color: #ffff00;
     font-size: 2.5rem;
-},
+}
 
-.center-span, .rating-input
-{
-    text-align: center;
-},
-
-.pagination
-{
-    text-align: center;
+form {
+ margin-top: 2rem;
 }
 
 </style>
@@ -121,10 +115,10 @@ echo <<<_END
                                         <div class="input-group mb-2">
                                             <div class="input-group-prepend">
                                         <label>
-                                            <select name="category">
-                                                <option  value="1" >Produkt</option>
-                                                <option value="2">Firma</option>
-                                                <option value="3">Inne</option>
+                                            <select name="category" required>
+                                                <option>Produkt</option>
+                                                <option>Firma</option>
+                                                <option>Inne</option>
                                             </select>
                                         </label>
                                             </div>
@@ -134,7 +128,7 @@ echo <<<_END
                                         <div class="input-group mb-2">
                                             <div class="input-group-prepend">
                                                 <label>
-                                                    <input type="file" name="image" accept="image/jpeg,image.png">
+                                                    <input type="file" name="image" accept="image/jpeg,image.png" width="200px" height="200px">
                                                 </label>
                                             </div>
                                         </div>
@@ -143,19 +137,19 @@ echo <<<_END
                                         <div class="input-group mb-2">
                                             <div class="input-group-prepend">
                                                 <span class="center-span">Oceń: </span>
-                                                <input class="rating-input" id="five-stars" type="radio" name="article-rate" value="1">
+                                                <input class="rating-input" id="five-stars" type="radio" name="article-rate" value="1" required>
                                                 <label class="rating-star" for="five-stars"><i class="fa fa-star"></i></label>
 
-                                                <input class="rating-input" id="four-stars" type="radio" name="article-rate" value="2">
+                                                <input class="rating-input" id="four-stars" type="radio" name="article-rate" value="2" required>
                                                 <label class="rating-star" for="four-stars"><i class="fa fa-star"></i></label>
 
-                                                <input class="rating-input" id="three-stars" type="radio" name="article-rate" value="3">
+                                                <input class="rating-input" id="three-stars" type="radio" name="article-rate" value="3" required>
                                                 <label class="rating-star" for="three-stars"><i class="fa fa-star"></i></label>
 
-                                                <input class="rating-input" id="two-stars" type="radio" name="article-rate" value="4">
+                                                <input class="rating-input" id="two-stars" type="radio" name="article-rate" value="4" required>
                                                 <label class="rating-star" for="two-stars"><i class="fa fa-star"></i></label>
 
-                                                <input class="rating-input" id="one-star" type="radio" name="article-rate" value="5">
+                                                <input class="rating-input" id="one-star" type="radio" name="article-rate" value="5" required>
                                                 <label class="rating-star" for="one-star"><i class="fa fa-star"></i></label>
 
                                             </div>
@@ -167,7 +161,7 @@ echo <<<_END
                                         <div class="input-group-prepend">
                                             <div class="input-group-text"><i class="fa fa-comment text-info"></i></div>
                                         </div>
-                                        <textarea class="form-control" name="comment" placeholder="Wpisz komentarz.." required></textarea>
+                                        <textarea class="form-control" name="comment" placeholder="Wpisz komentarz.."></textarea>
                                     </div>
                                 </div>
                                 <div class="text-center">
@@ -204,8 +198,8 @@ _END;
         $width = imagesx($img);
         $height = imagesy($img);
 
-        $width_mini = 200; // szerokosc obrazka
-        $height_mini = 200; // wysokosc obrazka
+        $width_mini = 100; // szerokosc obrazka
+        $height_mini = 100; // wysokosc obrazka
         $img_mini = imagecreatetruecolor($width_mini, $height_mini);
 
 
@@ -216,17 +210,14 @@ _END;
         imagedestroy($img);
         imagedestroy($img_mini);
         }
-function get_post($conn, $var)
-{
-    return $conn->real_escape_string($_POST[$var]);
-}
+
 foreach  ($conn->query('SELECT * FROM dane ORDER BY id DESC LIMIT '.$from.','.$limit) as $r) {
 
 /*
  * $z = $conn->query("SELECT * FROM dane ");
  * while ($r = $z->fetch_assoc()) {*/
 
-    echo <<<_END
+echo <<<_END
             <div class="container">
 				<table id="user_data" class="table table-bordered table-striped">
 					<thead>
@@ -243,12 +234,12 @@ foreach  ($conn->query('SELECT * FROM dane ORDER BY id DESC LIMIT '.$from.','.$l
 					</thead>
 					<tbody>
 						<tr>
-							<th width="10%"><a href="./upload/{$r['image']}"><img src="./upload/{$r['image']}" class="img-responsive"></a></th>
+							<th width="10%"><a href="./upload/{$r['image']}"><img src="./upload/{$r['image']}" class="img-responsive" height="100px" width="100px"></a></th>
 							<th width="10%">$r[first_name]</th>
 							<th width="10%">$r[last_name]</th>
                             <th width="10%">$r[email]</th>
                             <th width="10%">$r[category]</th>
-                            <th width="10%">$r[article_rate]</th>
+                            <th width="10%">$r[article_rate]/5 gwiazdek</th>
                             <th width="20%">$r[comment]</th>
                             <th width="20%">$ip</th>
 						</tr>
@@ -261,11 +252,10 @@ function t1($val, $min, $max){
     return ($val >= $min && $val <=$max);
 }
 
-echo '<div class="row justify-content-center"></div>';
 for($i=0;$i<$allPage;$i++){
     $bold = ($i==($page));
     if(t1($i, ($page-3), ($page+5))){
-        echo '<a class="link-pagination" '.$bold .' href="index.php?page='.$i.'">'.'<input type="button" class="btn btn-primary" value="'.$i.'" /></a>';
+        echo '<a '.$bold .' href="index.php?page='.$i.'">'.'<input type="button" class="btn btn-primary" value="'.$i.'" /></a>';
     }
 }
 

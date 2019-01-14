@@ -4,7 +4,6 @@
     <list default="true" id="4519b6b5-74e9-46e3-b3e4-bdd6a7b59ced" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/style.css" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,8 +16,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="244">
-              <caret line="89" column="87" selection-start-line="89" selection-start-column="87" selection-end-line="89" selection-end-column="87" />
+            <state relative-caret-position="196">
+              <caret line="36" column="35" lean-forward="true" selection-start-line="36" selection-start-column="35" selection-end-line="36" selection-end-column="35" />
+              <folding>
+                <marker date="1547426389922" expanded="true" signature="7:86" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -51,7 +53,7 @@
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="53" />
     <option name="y" value="27" />
-    <option name="width" value="1387" />
+    <option name="width" value="694" />
     <option name="height" value="873" />
   </component>
   <component name="ProjectView">
@@ -113,7 +115,7 @@
       <workItem from="1547327332284" duration="5741000" />
       <workItem from="1547373987996" duration="7529000" />
       <workItem from="1547406991838" duration="12977000" />
-      <workItem from="1547420101222" duration="1610000" />
+      <workItem from="1547420101222" duration="6626000" />
     </task>
     <task id="LOCAL-00001" summary="progress">
       <created>1547195275876</created>
@@ -150,17 +152,24 @@
       <option name="project" value="LOCAL" />
       <updated>1547414918622</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="smutno">
+      <created>1547421855064</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1547421855064</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50013000" />
+    <option name="totallyTimeSpent" value="55029000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="53" y="27" width="1387" height="873" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.10319228" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.10319228" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -190,7 +199,8 @@
     <MESSAGE value="progress #3" />
     <MESSAGE value="progress #4" />
     <MESSAGE value="progress #5" />
-    <option name="LAST_COMMIT_MESSAGE" value="progress #5" />
+    <MESSAGE value="smutno" />
+    <option name="LAST_COMMIT_MESSAGE" value="smutno" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/style.css" />
@@ -199,8 +209,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="244">
-          <caret line="89" column="87" selection-start-line="89" selection-start-column="87" selection-end-line="89" selection-end-column="87" />
+        <state relative-caret-position="196">
+          <caret line="36" column="35" lean-forward="true" selection-start-line="36" selection-start-column="35" selection-end-line="36" selection-end-column="35" />
+          <folding>
+            <marker date="1547426389922" expanded="true" signature="7:86" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
