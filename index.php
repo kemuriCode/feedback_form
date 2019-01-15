@@ -229,7 +229,6 @@ echo <<<_END
         <small>$r[first_name]</small>
         <small>$r[last_name]</small>
       </div>
-
     </div>
     <div class="col-md-9">
       <h5>Kategoria: $r[category]</h5>
@@ -259,24 +258,19 @@ for($i=0;$i<$allPage;$i++) {
 echo <<<_END
 <footer>
    <div class="row">
-   
             <div class="col-md-4 col-sm-6 col-xs-12">
               <img src="logo/logo.png" height="200" width="255">
             </div>
-            
             <div class="col-md-4 col-sm-6 col-xs-12">
                 <ul class="menu">
                      <span>Created by</span>    
                  </ul>
             </div>
-       
             <div class="col-md-4 col-sm-6 col-xs-12">
               <ul class="address">
                     <span>Marcin Dymek</span>       
                </ul>
-           </div>
-       
-       
+           </div>   
        </div> 
 </footer>
 </body>
